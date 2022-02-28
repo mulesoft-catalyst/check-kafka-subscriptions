@@ -1,0 +1,4 @@
+keystore:
+  pass: "![]"
+truststore:
+  pass: "![]"

@@ -1,0 +1,4 @@
+consumer:
+  bootstrapServer: ""
+  topics: ""
+  group: ""

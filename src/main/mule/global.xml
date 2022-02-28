@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
+	xmlns:tls="http://www.mulesoft.org/schema/mule/tls"
+	xmlns:kafka="http://www.mulesoft.org/schema/mule/kafka" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/kafka http://www.mulesoft.org/schema/mule/kafka/current/mule-kafka.xsd
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+		<kafka:consumer-config name="kafka-consumer" doc:name="Apache Kafka Consumer configuration" doc:id="4d17785e-f6d6-4b41-92f1-3b88691b599f" >
+		<kafka:consumer-plaintext-connection tlsContext="tls-context-consumer" groupId="${consumer.group}">
+			<kafka:bootstrap-servers >
+				<kafka:bootstrap-server value="${consumer.bootstrapServer}" />
+			</kafka:bootstrap-servers>
+			<kafka:topic-patterns >
+				<kafka:topic-pattern value="${consumer.topics}" />
+			</kafka:topic-patterns>
+		
+</kafka:consumer-plaintext-connection>
+	</kafka:consumer-config>
+		<tls:context name="tls-context-consumer" doc:name="TLS Context" doc:id="24963961-adb3-4cea-a730-19b2fca616a6" >
+		<tls:trust-store path="certs/${mule.env}-truststore.jks" password="${secure::truststore.pass}" type="jks"/>
+		<tls:key-store path="certs/${mule.env}-.keystore.jks" type="jks" keyPassword="${secure::keystore.pass}" password="${secure::keystore.pass}"/>
+	</tls:context>
+	<configuration-properties doc:name="environment-config" doc:id="b661b927-abe0-4d12-8669-3883a8633da7" file="config/config-${mule.env}.yaml" />
+	<global-property doc:name="Global Property" doc:id="1e848872-97fa-4835-9cf0-014993e77126" name="mule.env" value="dev" />
+	<secure-properties:config name="secure-properties-config" doc:name="Secure Properties Config" doc:id="2772a3f0-67a3-4e06-91f7-31703a7ef1a7" file="secureConfig/config-secured-${mule.env}.yaml" key="${mule.encryptionKey}"/>
+	<global-property doc:name="Global Property" doc:id="2765d295-d917-42b6-816c-97a78e12d8a1" name="mule.encryptionKey" value="1122334455667788"/>
+</mule>
