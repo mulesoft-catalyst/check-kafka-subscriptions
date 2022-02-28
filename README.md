@@ -1,4 +1,5 @@
-# This repo can be used to verify Kafka certificates without consuming any messages as such. It can also help identifying which all topics these certificates can access.
+# General
+This repo can be used to verify Kafka certificates without consuming any messages as such. It can also help identifying which all topics these certificates can access.
 
 In order to run the example after importing it in Anypoint Studio, you will need to :
 1. Update the global.xml for the global properties "mule.env" and "mule.encryptionKey" as applicable.
